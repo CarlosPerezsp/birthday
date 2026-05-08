@@ -12,27 +12,44 @@ export const PHOTOS = [
   "./assets/photos/foto1.jpg",
   "./assets/photos/foto2.jpg",
   "./assets/photos/foto3.jpeg",
-  "./assets/photos/foto4.svg",
+  "./assets/photos/c3.svg",
 ];
 
 // ─── Photos for the heart mosaic in fase 4 ──────────────────────────────────
 // 16–20 photos recommended for the best heart shape.
 // Replace placeholder paths with your real photos (.jpg, .png, .webp).
 export const HEART_PHOTOS = [
+  "./assets/photos/foto1.jpg",
+  "./assets/photos/foto2.jpg",
+  "./assets/photos/foto3.jpeg",
   "./assets/photos/c1.jpg",
   "./assets/photos/c2.jpg",
   "./assets/photos/c3.jpg",
-  "./assets/photos/foto2.jpg",
   "./assets/photos/foto1.jpg",
   "./assets/photos/foto2.jpg",
+  "./assets/photos/foto3.jpeg",
+  "./assets/photos/c1.jpg",
+  "./assets/photos/c2.jpg",
+  "./assets/photos/c3.jpg",
   "./assets/photos/foto1.jpg",
   "./assets/photos/foto2.jpg",
-  "./assets/photos/foto1.jpg",
-  "./assets/photos/foto2.jpg",
-  "./assets/photos/foto1.jpg",
-  "./assets/photos/foto2.jpg",
-  "./assets/photos/foto1.jpg",
-  "./assets/photos/foto2.jpg",
+  "./assets/photos/foto3.jpeg",
+  "./assets/photos/c1.jpg",
+  "./assets/photos/c2.jpg",
+  "./assets/photos/c3.jpg",
   "./assets/photos/foto1.jpg",
   "./assets/photos/foto2.jpg",
 ];
+/*
+"./assets/photos/foto2.jpg",
+  "./assets/photos/foto1.jpg",
+  "./assets/photos/foto2.jpg",
+  "./assets/photos/foto1.jpg",
+  "./assets/photos/foto2.jpg",
+  "./assets/photos/foto1.jpg",
+  "./assets/photos/foto2.jpg",
+  "./assets/photos/foto1.jpg",
+  "./assets/photos/foto2.jpg",
+  "./assets/photos/foto1.jpg",
+  "./assets/photos/foto2.jpg",
+  */
