@@ -320,7 +320,7 @@
   padding: 32px;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.35s ease;
+  transition: opacity 0.2s ease;
 }
 
 .hp-spotlight--visible {
@@ -337,6 +337,11 @@
     0 0 0 2px rgba(255, 93, 122, 0.45),
     0 0 64px rgba(232, 25, 44, 0.55),
     0 24px 80px rgba(0, 0, 0, 0.85);
+  transform-origin: center center;
+}
+
+.hp-spotlight--visible .hp-spotlight-img {
+  animation: hp-ken-burns var(--kb-dur, 700ms) cubic-bezier(0.25, 0, 0.5, 1) forwards;
 }
 
 /* Heart grid container */
@@ -369,7 +374,7 @@
 
 /* Fly-in animation (from screen center to heart position) */
 .hp-thumb--placed {
-  animation: thumb-fly-in 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: thumb-fly-in 0.55s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 /* Final pulse when heart is complete */
@@ -452,10 +457,19 @@
   to   { opacity: 1; }
 }
 
+@keyframes hp-ken-burns {
+  from {
+    transform: scale(1) translate(0, 0);
+  }
+  to {
+    transform: scale(1.03) translate(var(--kb-x, 0%), var(--kb-y, 0%));
+  }
+}
+
 @keyframes thumb-fly-in {
   from {
-    opacity: 0.9;
-    transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% + var(--dy, 0px))) scale(3.2);
+    opacity: 0;
+    transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% + var(--dy, 0px))) scale(1.6);
   }
   to {
     opacity: 1;

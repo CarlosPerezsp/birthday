@@ -1,9 +1,10 @@
 import { HEART_PHOTOS } from "../content.js";
+import { randomFloat } from "../utils/random.js";
 
-const SPOTLIGHT_IN_MS   = 350;   // matches CSS transition on .hp-spotlight
-const SPOTLIGHT_HOLD_MS = 1000;  // how long the photo stays large
-const FLY_MS            = 650;   // matches thumb-fly-in animation duration
-const BETWEEN_MS        = 180;   // pause after fly before next photo starts
+const SPOTLIGHT_IN_MS   = 200;   // matches CSS transition on .hp-spotlight
+const SPOTLIGHT_HOLD_MS = 500;   // how long the photo stays large
+const FLY_MS            = 550;   // matches thumb-fly-in animation duration
+const BETWEEN_MS        = 80;    // pause after fly before next photo starts
 
 /**
  * Returns N evenly-spaced positions on the parametric heart curve,
@@ -94,8 +95,13 @@ export function PhotosPhase() {
           return;
         }
 
-        // 1. Show photo large in spotlight
+        // 1. Show photo large in spotlight with random Ken Burns direction
         spotImg.src = HEART_PHOTOS[index];
+        const kbX = randomFloat(-1.5, 1.5).toFixed(1);
+        const kbY = randomFloat(-1, 1).toFixed(1);
+        spotImg.style.setProperty("--kb-x", `${kbX}%`);
+        spotImg.style.setProperty("--kb-y", `${kbY}%`);
+        spotImg.style.setProperty("--kb-dur", `${SPOTLIGHT_IN_MS + SPOTLIGHT_HOLD_MS}ms`);
         spotlight.classList.add("hp-spotlight--visible");
 
         // 2. After fade-in + hold → fade out spotlight & fly thumb to position
