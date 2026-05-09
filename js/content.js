@@ -12,7 +12,7 @@ export const PHOTOS = [
   "./assets/photos/foto1.jpg",
   "./assets/photos/foto2.jpg",
   "./assets/photos/foto3.jpeg",
-  "./assets/photos/c3.svg",
+  "./assets/photos/foto4.jpeg",
 ];
 
 // ─── Photos for the heart mosaic in fase 4 ──────────────────────────────────
