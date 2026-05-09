@@ -1,10 +1,8 @@
 import { HEART_PHOTOS } from "../content.js";
 import { randomFloat } from "../utils/random.js";
 
-const SPOTLIGHT_IN_MS   = 200;   // matches CSS transition on .hp-spotlight
-const SPOTLIGHT_HOLD_MS = 500;   // how long the photo stays large
-const FLY_MS            = 550;   // matches thumb-fly-in animation duration
-const BETWEEN_MS        = 80;    // pause after fly before next photo starts
+const SWEEP_MS   = 320;   // matches thumb-sweep-in animation duration
+const BETWEEN_MS = 45;    // pause between consecutive sweeps
 
 /**
  * Returns N evenly-spaced positions on the parametric heart curve,
@@ -46,14 +44,6 @@ export function PhotosPhase() {
       const section = document.createElement("section");
       section.className = "hp-stage";
 
-      // Spotlight — big centered photo
-      const spotlight = document.createElement("div");
-      spotlight.className = "hp-spotlight";
-      const spotImg = document.createElement("img");
-      spotImg.className = "hp-spotlight-img";
-      spotImg.alt = "";
-      spotlight.appendChild(spotImg);
-
       // Heart grid
       const grid = document.createElement("div");
       grid.className = "hp-heart-grid";
@@ -65,6 +55,15 @@ export function PhotosPhase() {
         wrap.style.left = `${positions[i].left}%`;
         wrap.style.top  = `${positions[i].top}%`;
         wrap.style.setProperty("--j", String(i));
+        // Alternating sweep direction + random slight rotation
+        const rot = randomFloat(-7, 7).toFixed(1);
+        wrap.style.setProperty("--sweep-rot", `${rot}deg`);
+        wrap.style.setProperty(
+          "--sweep-from",
+          i % 2 === 0
+            ? "inset(0 100% 0 0% round 8px)"
+            : "inset(0 0% 0 100% round 8px)"
+        );
 
         const img = document.createElement("img");
         img.src = src;
@@ -76,7 +75,6 @@ export function PhotosPhase() {
         return wrap;
       });
 
-      section.appendChild(spotlight);
       section.appendChild(grid);
       root.appendChild(section);
 
@@ -89,42 +87,49 @@ export function PhotosPhase() {
               el.classList.remove("hp-thumb--placed");
               el.style.opacity   = "1";
               el.style.transform = "translate(-50%, -50%) scale(1)";
-              schedule(() => el.classList.add("hp-thumb--glow"), j * 80);
+              schedule(() => el.classList.add("hp-thumb--glow"), j * 60);
             });
-          }, 500);
+
+            // After all glows settle → rain + reload button
+            const glowEndMs = (thumbEls.length - 1) * 60 + 900;
+            schedule(() => {
+              const rain = document.createElement("div");
+              rain.className = "hp-rain";
+              const symbols = ["♥", "♥", "★", "✦", "♥"];
+              for (let i = 0; i < 28; i++) {
+                const p = document.createElement("span");
+                p.className = "hp-rain-particle";
+                p.textContent = symbols[i % symbols.length];
+                p.style.setProperty("--x",     `${randomFloat(0, 100).toFixed(1)}%`);
+                p.style.setProperty("--delay", `${randomFloat(0, 2.5).toFixed(2)}s`);
+                p.style.setProperty("--dur",   `${randomFloat(1.8, 3.2).toFixed(2)}s`);
+                p.style.setProperty("--sz",    `${randomFloat(10, 22).toFixed(0)}px`);
+                p.style.setProperty("--drift", `${randomFloat(-30, 30).toFixed(0)}px`);
+                p.style.setProperty("--spin",  `${randomFloat(120, 400).toFixed(0)}deg`);
+                const cols = ["#ff9aaa", "#e8192c", "#ffccd4", "#ff5577"];
+                p.style.setProperty("--col", cols[i % cols.length]);
+                rain.appendChild(p);
+              }
+              section.appendChild(rain);
+
+              const btn = document.createElement("button");
+              btn.className = "hp-reload";
+              btn.setAttribute("aria-label", "Volver a ver");
+              btn.innerHTML = "&#x21BA;";
+              btn.addEventListener("click", () => location.reload());
+              section.appendChild(btn);
+              schedule(() => btn.classList.add("hp-reload--visible"), 200);
+            }, glowEndMs);
+          }, 300);
           return;
         }
 
-        // 1. Show photo large in spotlight with random Ken Burns direction
-        spotImg.src = HEART_PHOTOS[index];
-        const kbX = randomFloat(-1.5, 1.5).toFixed(1);
-        const kbY = randomFloat(-1, 1).toFixed(1);
-        spotImg.style.setProperty("--kb-x", `${kbX}%`);
-        spotImg.style.setProperty("--kb-y", `${kbY}%`);
-        spotImg.style.setProperty("--kb-dur", `${SPOTLIGHT_IN_MS + SPOTLIGHT_HOLD_MS}ms`);
-        spotlight.classList.add("hp-spotlight--visible");
-
-        // 2. After fade-in + hold → fade out spotlight & fly thumb to position
-        schedule(() => {
-          spotlight.classList.remove("hp-spotlight--visible");
-
-          const thumb = thumbEls[index];
-          const rect  = thumb.getBoundingClientRect();
-          // Calculate offset from thumb center to screen center
-          const dx = window.innerWidth  / 2 - (rect.left + rect.width  / 2);
-          const dy = window.innerHeight / 2 - (rect.top  + rect.height / 2);
-
-          thumb.style.setProperty("--dx", `${dx}px`);
-          thumb.style.setProperty("--dy", `${dy}px`);
-          thumb.classList.add("hp-thumb--placed");
-
-          // 3. Move to next photo after fly completes
-          schedule(() => runPhoto(index + 1), FLY_MS + BETWEEN_MS);
-        }, SPOTLIGHT_IN_MS + SPOTLIGHT_HOLD_MS);
+        thumbEls[index].classList.add("hp-thumb--placed");
+        schedule(() => runPhoto(index + 1), SWEEP_MS + BETWEEN_MS);
       };
 
       // Brief entrance delay before first photo
-      schedule(() => runPhoto(0), 700);
+      schedule(() => runPhoto(0), 400);
 
       return () => timers.forEach(clearTimeout);
     },
