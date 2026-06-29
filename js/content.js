@@ -1,16 +1,20 @@
 // ─── Editable birthday text ────────────────────────────────────────────────
 // Each entry becomes one paragraph, shown one-by-one in fase 2.
 export const BDAY_PARAGRAPHS = [
-  "Hoy es tu día, Angy.",
-  "Que este año esté lleno de momentos que te hagan sonreír.",
-  "Con todo el amor del mundo. ❤️",
+  "Quiero decirte lo mucho que te amo, siempre me pongo a pensar en la manera que",
+  "nos conocimos que fue muy especial para mí, desde ignorarnos  a hablar todos los días," ,
+  "agradezco a la vida por permitirme conocerte, que bueno que si nos hablamos porque desde ",
+  "la primera salida que tuvimos  todo cambio, desde ese día te convertiste en alguien importante para mí",
+  "TE AMO"
 ];
+
+
 
 // ─── Photos for the book in fase 3 ─────────────────────────────────────────
 // Replace the paths with your real photos when ready (.jpg, .png, .webp).
 export const PHOTOS = [
-  "./assets/photos/foto1.jpg",
-  "./assets/photos/foto2.jpg",
+  "./assets/photos/foto1.jpeg",
+  "./assets/photos/foto2.jpeg",
   "./assets/photos/foto3.jpeg",
   "./assets/photos/foto4.jpeg",
 ];
@@ -19,9 +23,9 @@ export const PHOTOS = [
 // 16–20 photos recommended for the best heart shape.
 // Replace placeholder paths with your real photos (.jpg, .png, .webp).
 export const HEART_PHOTOS = [
-  "./assets/photos/c1.jpg",
-  "./assets/photos/c2.jpg",
-  "./assets/photos/c3.jpg",
+  "./assets/photos/c1.jpeg",
+  "./assets/photos/c2.jpeg",
+  "./assets/photos/c3.jpeg",
   "./assets/photos/C4.jpeg",
   "./assets/photos/C5.jpeg",
   "./assets/photos/C6.jpeg",
