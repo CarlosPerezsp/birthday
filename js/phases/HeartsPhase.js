@@ -19,7 +19,7 @@ export function HeartsPhase({ stateManager }) {
       section.innerHTML = `
         <div class="hearts-cascade" aria-hidden="true"></div>
         <div class="hearts-content">
-          <h1 class="bday-text" aria-label="Feliz Cumplea\u00F1os Angy"></h1>
+          <h1 class="bday-text" aria-label="Bonita, hay tantas cosas que quisiera decirte que no se cómo  expresarme, porque sin duda se que mereces todo lo bonito de este mundo"></h1>
           <button class="bday-arrow" type="button" data-next aria-label="Continuar">
             <span class="bday-arrow-icon"></span>
           </button>
@@ -31,7 +31,7 @@ export function HeartsPhase({ stateManager }) {
       const nextButton = section.querySelector("[data-next]");
 
       createCascadeHearts(35).forEach((h) => cascade.appendChild(h));
-      buildTitle(titleEl, "Feliz Cumplea\u00F1os Angy <3");
+      buildTitle(titleEl, "Bonita, hay tantas cosas que quisiera decirte que no se cómo  expresarme, porque sin duda se que mereces todo lo bonito de este mundo");
 
       nextButton.addEventListener("click", handleContinue);
 
